@@ -1,0 +1,59 @@
+@mixin clearfix {
+  &::after {
+    content: "";
+    display: table;;
+    clear: both;
+  }
+}
+@mixin absCenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+// NEDIA.QUERY MANAGER
+/*
+0 - 600px:      Phone
+600 - 900px:    Tablet portrait
+900 - 1200px:   Tablet landscape
+[1200-1800]:  is where our normal styles apply
+1800px + :      Big Desktop
+
+$breakpoint argument choices:
+- phone
+- tab-port
+- tab-land
+- big-desktop
+
+max-width or min-width for media.queries must always be expressed in em,
+em and rem in media.queries are not affected by the root font size,
+therefore 1em or 1rem here is always equal to size coming from browser,
+i.e, by default 16px, but if the user changes it to 20px then,
+it will be 20px no matter what we have in our base font definition
+
+ORDER: Base + typography > general layout + grid > page layout > components
+
+1em = 16px
+*/
+
+
+@mixin respond($breakpoint) {
+  @if $breakpoint == tab-land {
+    @media only screen and (max-width: 75em) {@content};      //1200px
+  }
+  @if $breakpoint == tab-port {
+    @media only screen and (max-width: 56.25em) {@content};      //900px
+  }
+  @if $breakpoint == phone {
+    @media only screen and (max-width: 37.5em) {@content};      //600px
+  }
+  @if $breakpoint == big-desktop {
+    @media only screen and (min-width: 112.5em) {@content};    //1800px
+  }
+}
+
+
+
+
+//
